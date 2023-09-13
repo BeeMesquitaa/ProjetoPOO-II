@@ -225,63 +225,64 @@ public class FRCadUsu extends javax.swing.JFrame {
     private void BtCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtCancelarMouseClicked
         this.dispose();
     }//GEN-LAST:event_BtCancelarMouseClicked
-    
-    private boolean verificarCampos(){
-        if(txtNome.getText().equals("")) {
-        JOptionPane.showMessageDialog(null,
-                "Campo 'Nome' em branco");
-        return false;
-    }
-        if(!txtNome.getText().matches("^[\\p{L} ]+$")) {
-        JOptionPane.showMessageDialog(null,
-                "Campo 'Nome' possui caracteres inválidos");
-        return false;
-    }
-        if(txtEmail.getText().equals("")) {
-        JOptionPane.showMessageDialog(null,
-                "Campo 'Email' em branco");
-        return false;
-    }
-        if(!txtEmail.getText().matches("^[a-zA-Z._]+@[a-zA-Z._]+")) {
-        JOptionPane.showMessageDialog(null,
-                "Campo 'Email' possui formato inválido");
-        return false;
-    }
-        if(!txtDtNasc.getText().matches("^[0-9]{2}/[0-9]{2}/[0-9]{4}$")) {
-        JOptionPane.showMessageDialog(null,
-                "Campo 'Data Nascimento' possui formato inválido"
-                +" Ex: 01/01/2000");
-        return false;
-    }
+
+    private boolean verificarCampos() {
+        if (txtNome.getText().equals("")) {
+            JOptionPane.showMessageDialog(null,
+                    "Campo 'Nome' em branco");
+            return false;
+        }
+        if (!txtNome.getText().matches("^[\\p{L} ]+$")) {
+            JOptionPane.showMessageDialog(null,
+                    "Campo 'Nome' possui caracteres inválidos");
+            return false;
+        }
+        if (txtEmail.getText().equals("")) {
+            JOptionPane.showMessageDialog(null,
+                    "Campo 'Email' em branco");
+            return false;
+        }
+        if (!txtEmail.getText().matches("^[a-zA-Z._]+@[a-zA-Z._]+")) {
+            JOptionPane.showMessageDialog(null,
+                    "Campo 'Email' possui formato inválido");
+            return false;
+        }
+        if (!txtDtNasc.getText().matches("^[0-9]{2}/[0-9]{2}/[0-9]{4}$")) {
+            JOptionPane.showMessageDialog(null,
+                    "Campo 'Data Nascimento' possui formato inválido"
+                    + " Ex: 01/01/2000");
+            return false;
+        }
         char[] senha = txtSenha.getPassword();
-        if(new String (senha).length() < 8) {
+        if (new String(senha).length() < 8) {
             JOptionPane.showMessageDialog(null,
                     "Campo 'Senha' deve ser maior que 8 caracteres!");
             return false;
-    }
-            if(!new String(senha).equals (new String(txtRSenha.getPassword()))) {
+        }
+        if (!new String(senha).equals(new String(txtRSenha.getPassword()))) {
             JOptionPane.showMessageDialog(null,
                     "As senhas não são iguais!");
             return false;
+        }
+        return true;
     }
-            return true;
-    }
-    
+
+
     private void btSalvarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btSalvarMouseClicked
-        if(!verificarCampos()) {
-        return;
+        if (!verificarCampos()) {
+            return;
         }
 //        BOTAO SALVAR
         UsuarioController controller = new UsuarioController();
 //        if(controller.){
-        
-        }
+
+        //}
     }//GEN-LAST:event_btSalvarMouseClicked
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
+/**
+ * @param args the command line arguments
+ */
+public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -292,16 +293,28 @@ public class FRCadUsu extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-                }
+
+}
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FRCadUsu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FRCadUsu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FRCadUsu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FRCadUsu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FRCadUsu.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
+} catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(FRCadUsu.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
+} catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(FRCadUsu.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
+} catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(FRCadUsu.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
