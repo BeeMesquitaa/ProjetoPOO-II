@@ -5,6 +5,7 @@
 package br.ulbra.view;
 
 import br.ulbra.controller.UsuarioController;
+import br.ulbra.utils.Utils;
 import javax.swing.JOptionPane;
 
 /**
@@ -43,7 +44,7 @@ public class FRCadUsu extends javax.swing.JFrame {
         btSalvar = new javax.swing.JButton();
         txtSenha = new javax.swing.JPasswordField();
         txtRSenha = new javax.swing.JPasswordField();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        chkAtivo = new javax.swing.JCheckBox();
         BtCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -97,12 +98,12 @@ public class FRCadUsu extends javax.swing.JFrame {
 
         txtRSenha.setBackground(new java.awt.Color(255, 255, 255));
 
-        jCheckBox1.setBackground(new java.awt.Color(204, 204, 204));
-        jCheckBox1.setForeground(new java.awt.Color(0, 0, 0));
-        jCheckBox1.setText("ATIVO");
-        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+        chkAtivo.setBackground(new java.awt.Color(204, 204, 204));
+        chkAtivo.setForeground(new java.awt.Color(0, 0, 0));
+        chkAtivo.setText("ATIVO");
+        chkAtivo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox1ActionPerformed(evt);
+                chkAtivoActionPerformed(evt);
             }
         });
 
@@ -154,7 +155,7 @@ public class FRCadUsu extends javax.swing.JFrame {
                                     .addComponent(BtCancelar)
                                     .addComponent(txtDtNasc, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 174, Short.MAX_VALUE)
-                                .addComponent(jCheckBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(chkAtivo, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(111, 111, 111))
         );
         jPanel1Layout.setVerticalGroup(
@@ -180,7 +181,7 @@ public class FRCadUsu extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtDtNasc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCheckBox1))
+                    .addComponent(chkAtivo))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel6)
                 .addGap(12, 12, 12)
@@ -214,9 +215,9 @@ public class FRCadUsu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+    private void chkAtivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkAtivoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox1ActionPerformed
+    }//GEN-LAST:event_chkAtivoActionPerformed
 
     private void BtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtCancelarActionPerformed
         // TODO add your handling code here:
@@ -272,11 +273,13 @@ public class FRCadUsu extends javax.swing.JFrame {
         if (!verificarCampos()) {
             return;
         }
-//        BOTAO SALVAR
+        
         UsuarioController controller = new UsuarioController();
-//        if(controller.){
-
-        //}
+        String senha = new String(txtSenha.getPassword());
+        if(controller.adicionarUsuario(txtNome.getText(), txtEmail.getText(), senha,
+                txtDtNasc.getText(), Utils.salvarBoolean(chkAtivo.isSelected()))){
+            this.dispose();
+        };
     }//GEN-LAST:event_btSalvarMouseClicked
 
 /**
@@ -329,7 +332,7 @@ public static void main(String args[]) {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtCancelar;
     private javax.swing.JButton btSalvar;
-    private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JCheckBox chkAtivo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

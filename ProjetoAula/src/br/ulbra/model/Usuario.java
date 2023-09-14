@@ -16,6 +16,10 @@ public class Usuario {
     public void setNomeUsu(String nomeUsu) {
         this.nomeUsu = nomeUsu;
     }
+
+    public int getUsuario_pk() {
+        return usuario_pk;
+    }
     
     
     public void setUsuario_pk(int usuario_pk) {
@@ -53,10 +57,19 @@ public class Usuario {
     public void setSenhaUsu(String senhaUsu) {
         this.senhaUsu = senhaUsu;
     }
+    
+    public String ativoToString() {
+    if (this.ativoUsu == 1)
+        return "Ativo";
+    else
+        return "Inativo";
+    }
 
     @Override
     public String toString() {
-        return "Usuario{" + "usuario_pk=" + usuario_pk + ", nomeUsu=" + nomeUsu + ", emailUsu=" + emailUsu + ", data_nascimentoUsu=" + data_nascimentoUsu + ", ativoUsu=" + ativoUsu + ", senhaUsu=" + senhaUsu + '}';
+        return "Usuario{" + "usuario_pk=" + usuario_pk + ", nomeUsu=" + nomeUsu 
+                + ", emailUsu=" + emailUsu + ", data_nascimentoUsu=" + data_nascimentoUsu 
+                + ", ativoUsu=" + ativoUsu + ", senhaUsu=" + senhaUsu + '}';
     }
 
     
