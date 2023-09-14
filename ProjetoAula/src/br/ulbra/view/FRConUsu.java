@@ -4,6 +4,10 @@
  */
 package br.ulbra.view;
 
+import br.ulbra.controller.UsuarioController;
+import br.ulbra.model.Usuario;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author beeme
@@ -27,20 +31,20 @@ public class FRConUsu extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        txtFiltro = new javax.swing.JLabel();
+        txt = new javax.swing.JLabel();
         txtConsUsu = new javax.swing.JLabel();
         btLupa = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        txtFiltro = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbUsu = new javax.swing.JTable();
+        tabela = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
 
-        txtFiltro.setFont(new java.awt.Font("Segoe UI Historic", 1, 18)); // NOI18N
-        txtFiltro.setForeground(new java.awt.Color(0, 0, 0));
-        txtFiltro.setText("Filtro");
+        txt.setFont(new java.awt.Font("Segoe UI Historic", 1, 18)); // NOI18N
+        txt.setForeground(new java.awt.Color(0, 0, 0));
+        txt.setText("Filtro");
 
         txtConsUsu.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
         txtConsUsu.setForeground(new java.awt.Color(0, 0, 0));
@@ -50,12 +54,17 @@ public class FRConUsu extends javax.swing.JFrame {
         btLupa.setBackground(new java.awt.Color(153, 153, 153));
         btLupa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/ulbra/img/search.png"))); // NOI18N
         btLupa.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btLupa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btLupaMouseClicked(evt);
+            }
+        });
 
-        jTextField1.setBackground(new java.awt.Color(153, 153, 153));
-        jTextField1.setForeground(new java.awt.Color(153, 153, 153));
+        txtFiltro.setBackground(new java.awt.Color(153, 153, 153));
+        txtFiltro.setForeground(new java.awt.Color(153, 153, 153));
 
-        tbUsu.setBackground(new java.awt.Color(153, 153, 153));
-        tbUsu.setModel(new javax.swing.table.DefaultTableModel(
+        tabela.setBackground(new java.awt.Color(153, 153, 153));
+        tabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -66,7 +75,7 @@ public class FRConUsu extends javax.swing.JFrame {
                 "Cod", "Nome", "E-mail", "Dt. Nasc.", "Ativo"
             }
         ));
-        jScrollPane1.setViewportView(tbUsu);
+        jScrollPane1.setViewportView(tabela);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -79,9 +88,9 @@ public class FRConUsu extends javax.swing.JFrame {
                         .addComponent(txtConsUsu, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(59, 59, 59)
-                        .addComponent(txtFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txt, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btLupa)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -100,8 +109,8 @@ public class FRConUsu extends javax.swing.JFrame {
                         .addComponent(txtConsUsu)
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtFiltro, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(63, 63, 63)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(125, Short.MAX_VALUE))
@@ -123,6 +132,25 @@ public class FRConUsu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void pesquisar() {
+        DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
+        modelo.setNumRows(0);
+        UsuarioController controller = new UsuarioController();
+        for (Usuario usu : controller.readForDesc(txtFiltro.getText())) {
+            Object[] linha = {usu.getUsuario_pk(),
+                 usu.getNomeUsu(),
+                 usu.getEmailUsu(),
+                 usu.getData_nascimentoUsu(),
+                 usu.ativoToString()};
+            modelo.addRow(linha);
+        }
+    }
+
+
+    private void btLupaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btLupaMouseClicked
+        pesquisar();
+    }//GEN-LAST:event_btLupaMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -137,16 +165,28 @@ public class FRConUsu extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-                }
+
+}
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FRConUsu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FRConUsu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FRConUsu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FRConUsu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FRConUsu.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
+} catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(FRConUsu.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
+} catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(FRConUsu.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
+} catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(FRConUsu.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -162,9 +202,9 @@ public class FRConUsu extends javax.swing.JFrame {
     private javax.swing.JButton btLupa;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTable tbUsu;
+    private javax.swing.JTable tabela;
+    private javax.swing.JLabel txt;
     private javax.swing.JLabel txtConsUsu;
-    private javax.swing.JLabel txtFiltro;
+    private javax.swing.JTextField txtFiltro;
     // End of variables declaration//GEN-END:variables
 }
