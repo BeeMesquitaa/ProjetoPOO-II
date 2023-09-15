@@ -19,6 +19,7 @@ public class FRCadUsu extends javax.swing.JFrame {
      */
     public FRCadUsu() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**

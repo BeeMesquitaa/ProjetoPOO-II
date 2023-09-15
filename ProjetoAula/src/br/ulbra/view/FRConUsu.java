@@ -6,6 +6,7 @@ package br.ulbra.view;
 
 import br.ulbra.controller.UsuarioController;
 import br.ulbra.model.Usuario;
+import java.awt.event.KeyEvent;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -19,6 +20,8 @@ public class FRConUsu extends javax.swing.JFrame {
      */
     public FRConUsu() {
         initComponents();
+        this.setLocationRelativeTo(null);
+
     }
 
     /**
@@ -61,7 +64,12 @@ public class FRConUsu extends javax.swing.JFrame {
         });
 
         txtFiltro.setBackground(new java.awt.Color(153, 153, 153));
-        txtFiltro.setForeground(new java.awt.Color(153, 153, 153));
+        txtFiltro.setForeground(new java.awt.Color(255, 255, 255));
+        txtFiltro.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtFiltroKeyPressed(evt);
+            }
+        });
 
         tabela.setBackground(new java.awt.Color(153, 153, 153));
         tabela.setModel(new javax.swing.table.DefaultTableModel(
@@ -75,6 +83,11 @@ public class FRConUsu extends javax.swing.JFrame {
                 "Cod", "Nome", "E-mail", "Dt. Nasc.", "Ativo"
             }
         ));
+        tabela.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tabela);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -150,6 +163,24 @@ public class FRConUsu extends javax.swing.JFrame {
     private void btLupaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btLupaMouseClicked
         pesquisar();
     }//GEN-LAST:event_btLupaMouseClicked
+
+    private void tabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseClicked
+        if (tabela.getSelectedRow() != -1) {
+            int pk = Integer.parseInt
+                (tabela.getValueAt(tabela.getSelectedRow(), 0).toString()
+                
+            );
+            FRUpdUsu telaUPD = new FRUpdUsu();
+            telaUPD.setPkUsuario(pk);
+            telaUPD.setVisible(true);
+        }
+    }//GEN-LAST:event_tabelaMouseClicked
+
+    private void txtFiltroKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltroKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER) {
+        pesquisar();
+        }
+    }//GEN-LAST:event_txtFiltroKeyPressed
 
     /**
      * @param args the command line arguments

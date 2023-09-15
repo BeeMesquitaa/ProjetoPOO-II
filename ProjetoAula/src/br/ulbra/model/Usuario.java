@@ -58,6 +58,8 @@ public class Usuario {
         this.senhaUsu = senhaUsu;
     }
     
+    
+    
     public String ativoToString() {
     if (this.ativoUsu == 1)
         return "Ativo";

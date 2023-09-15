@@ -15,6 +15,7 @@ public class FRMenu extends javax.swing.JFrame {
      */
     public FRMenu() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
