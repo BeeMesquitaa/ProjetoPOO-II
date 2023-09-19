@@ -1,6 +1,6 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
 package br.ulbra.view;
 
@@ -12,14 +12,14 @@ import javax.swing.JOptionPane;
  *
  * @author beeme
  */
-public class FRCadUsu extends javax.swing.JFrame {
+public class FRCadUsu extends javax.swing.JDialog {
 
     /**
-     * Creates new form FRCadUsu
+     * Creates new form FRCadUsu_
      */
-    public FRCadUsu() {
+    public FRCadUsu(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
         initComponents();
-        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -49,6 +49,7 @@ public class FRCadUsu extends javax.swing.JFrame {
         BtCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Cadastro de Usuários");
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -61,7 +62,7 @@ public class FRCadUsu extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel3.setText("CADASTRO DE USUÁRIO:");
+        jLabel3.setText("CADASTRO DO ALUNO:");
 
         txtNome.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -132,8 +133,9 @@ public class FRCadUsu extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(147, 147, 147)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel3)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(41, 41, 41)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -164,11 +166,11 @@ public class FRCadUsu extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(70, 70, 70)
-                        .addComponent(jLabel3))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(38, 38, 38)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(60, 60, 60)
+                        .addComponent(jLabel3)))
                 .addGap(26, 26, 26)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -216,18 +218,6 @@ public class FRCadUsu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void chkAtivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkAtivoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_chkAtivoActionPerformed
-
-    private void BtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtCancelarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_BtCancelarActionPerformed
-
-    private void BtCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtCancelarMouseClicked
-        this.dispose();
-    }//GEN-LAST:event_BtCancelarMouseClicked
-
     private boolean verificarCampos() {
         if (txtNome.getText().equals("")) {
             JOptionPane.showMessageDialog(null,
@@ -268,25 +258,37 @@ public class FRCadUsu extends javax.swing.JFrame {
         }
         return true;
     }
-
-
+    
+    
     private void btSalvarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btSalvarMouseClicked
-        if (!verificarCampos()) {
+         if(!verificarCampos()){
             return;
         }
         
         UsuarioController controller = new UsuarioController();
         String senha = new String(txtSenha.getPassword());
-        if(controller.adicionarUsuario(txtNome.getText(), txtEmail.getText(), senha,
+        if(controller.adicionarUsuario(txtNome.getText(), txtEmail.getText(), senha, 
                 txtDtNasc.getText(), Utils.salvarBoolean(chkAtivo.isSelected()))){
             this.dispose();
         };
     }//GEN-LAST:event_btSalvarMouseClicked
 
-/**
- * @param args the command line arguments
- */
-public static void main(String args[]) {
+    private void chkAtivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkAtivoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_chkAtivoActionPerformed
+
+    private void BtCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtCancelarMouseClicked
+        this.dispose();
+    }//GEN-LAST:event_BtCancelarMouseClicked
+
+    private void BtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtCancelarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BtCancelarActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -297,35 +299,31 @@ public static void main(String args[]) {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-
-}
+                }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FRCadUsu.class  
-
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
-} catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FRCadUsu.class  
-
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
-} catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FRCadUsu.class  
-
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
-} catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FRCadUsu.class  
-
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FRCadUsu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(FRCadUsu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(FRCadUsu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(FRCadUsu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
-        /* Create and display the form */
+        /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FRCadUsu().setVisible(true);
+                FRCadUsu dialog = new FRCadUsu(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
             }
         });
     }

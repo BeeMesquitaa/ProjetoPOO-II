@@ -39,7 +39,7 @@ public class FRMenu extends javax.swing.JFrame {
         MIConUsu = new javax.swing.JMenuItem();
         MIConue = new javax.swing.JMenuItem();
         MIAju = new javax.swing.JMenu();
-        MIAjuSobre = new javax.swing.JMenuItem();
+        miSobre = new javax.swing.JMenuItem();
 
         jMenu3.setText("jMenu3");
 
@@ -108,8 +108,13 @@ public class FRMenu extends javax.swing.JFrame {
 
         MIAju.setText("Ajuda");
 
-        MIAjuSobre.setText("Sobre");
-        MIAju.add(MIAjuSobre);
+        miSobre.setText("Sobre");
+        miSobre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miSobreActionPerformed(evt);
+            }
+        });
+        MIAju.add(miSobre);
 
         jMenuBar1.add(MIAju);
 
@@ -132,16 +137,20 @@ public class FRMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void MICadUsuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MICadUsuActionPerformed
-        new FRCadUsu().setVisible(true);
+        new FRCadUsu(this, rootPaneCheckingEnabled).setVisible(true);
     }//GEN-LAST:event_MICadUsuActionPerformed
 
     private void MIConUsuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MIConUsuActionPerformed
-        new FRConUsu().setVisible(true);
+        new FRConUsu(this, rootPaneCheckingEnabled).setVisible(true);
     }//GEN-LAST:event_MIConUsuActionPerformed
 
     private void MICadSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MICadSairActionPerformed
         this.dispose();
     }//GEN-LAST:event_MICadSairActionPerformed
+
+    private void miSobreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miSobreActionPerformed
+        new FRSobre(this, rootPaneCheckingEnabled).setVisible(true);
+    }//GEN-LAST:event_miSobreActionPerformed
 
     /**
      * @param args the command line arguments
@@ -181,7 +190,6 @@ public class FRMenu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu MIAju;
-    private javax.swing.JMenuItem MIAjuSobre;
     private javax.swing.JMenu MICad;
     private javax.swing.JMenuItem MICadSair;
     private javax.swing.JMenuItem MICadUsu;
@@ -193,5 +201,6 @@ public class FRMenu extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JMenuItem miSobre;
     // End of variables declaration//GEN-END:variables
 }

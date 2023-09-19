@@ -1,34 +1,32 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
 package br.ulbra.view;
 
 import br.ulbra.controller.UsuarioController;
 import br.ulbra.model.Usuario;
-import br.ulbra.utils.Utils;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author beeme
  */
-public class FRUpdUsu extends javax.swing.JFrame {
+public class FRUpdUsu extends javax.swing.JDialog {
     
-    private int pkUsuario;
-    
-    public void setPkUsuario(int pk) {
-    
-        this.pkUsuario = pk;
+    private int usuario_pk;
+
+    public void setUsuario_pk(int usuario_pk) {
+        this.usuario_pk = usuario_pk;
     }
-    
+
     /**
-     * Creates new form FRUpdUsu
+     * Creates new form FRUpdUsu_
      */
-    public FRUpdUsu() {
+    public FRUpdUsu(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
         initComponents();
         this.setLocationRelativeTo(null);
-
     }
 
     /**
@@ -40,7 +38,6 @@ public class FRUpdUsu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel16 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         txtUsu = new javax.swing.JLabel();
         LabelNome = new javax.swing.JLabel();
@@ -59,10 +56,6 @@ public class FRUpdUsu extends javax.swing.JFrame {
         txtCodigo = new javax.swing.JTextField();
         txtRSenhaUsu = new javax.swing.JLabel();
         txtRepetirSUsu = new javax.swing.JPasswordField();
-
-        jLabel16.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel16.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel16.setText("NOME:");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -265,44 +258,8 @@ public class FRUpdUsu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtNomeUsuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeUsuActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNomeUsuActionPerformed
-
-    private void txtEmailUsuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailUsuActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtEmailUsuActionPerformed
-
-    private void txtDtNascUsuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDtNascUsuActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtDtNascUsuActionPerformed
-
-    private void txtSenhaUsuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSenhaUsuActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtSenhaUsuActionPerformed
-
-    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        UsuarioController controller = new UsuarioController();
-        Usuario usu = controller.readForPk(pkUsuario);
-        
-        String codigo = String.valueOf(usu.getUsuario_pk());
-        txtCodigo.setText(codigo);
-        txtNomeUsu.setText(usu.getNomeUsu());
-        txtEmailUsu.setText(usu.getEmailUsu());
-        txtDtNascUsu.setText(usu.getData_nascimentoUsu());
-        txtSenhaUsu.setText(usu.getSenhaUsu());
-        AtivoUsu.setSelected(usu.getAtivoUsu() == 1);
-    }//GEN-LAST:event_formWindowActivated
-
-    private void txtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCodigoActionPerformed
-
-    private void btVoltarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btVoltarMouseClicked
-        this.dispose();
-    }//GEN-LAST:event_btVoltarMouseClicked
-
-     private boolean verificarCampos() {
+    
+    private boolean verificarCampos() {
         if (txtNomeUsu.getText().equals("")) {
             JOptionPane.showMessageDialog(null,
                     "Campo 'Nome' em branco");
@@ -344,28 +301,51 @@ public class FRUpdUsu extends javax.swing.JFrame {
     }
     
     
+    private void txtNomeUsuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeUsuActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNomeUsuActionPerformed
+
+    private void txtEmailUsuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailUsuActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtEmailUsuActionPerformed
+
+    private void txtDtNascUsuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDtNascUsuActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDtNascUsuActionPerformed
+
     private void btAlterarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btAlterarMouseClicked
-        if (!verificarCampos()) {
-            return;
-        }
-        
-        UsuarioController controller = new UsuarioController();
-        String senha = new String(txtSenhaUsu.getPassword());
-        Usuario usuario = new Usuario();
-        usuario.setUsuario_pk(pkUsuario);
-        usuario.setNomeUsu(txtNomeUsu.getText());
-        usuario.setEmailUsu(txtEmailUsu.getText());
-        usuario.setData_nascimentoUsu(txtDtNascUsu.getText());
-        usuario.setAtivoUsu(Utils.salvarBoolean(AtivoUsu.isSelected()));
-        usuario.setSenhaUsu(senha);
-        if(controller.alterarUsuario(usuario)){
-        this.dispose();
-    };
+    
     }//GEN-LAST:event_btAlterarMouseClicked
+
+    private void txtSenhaUsuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSenhaUsuActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSenhaUsuActionPerformed
+
+    private void btVoltarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btVoltarMouseClicked
+        this.dispose();
+    }//GEN-LAST:event_btVoltarMouseClicked
+
+    private void txtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCodigoActionPerformed
 
     private void txtRepetirSUsuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRepetirSUsuActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtRepetirSUsuActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        UsuarioController controller = new UsuarioController();
+        Usuario usu = controller.readForPk(usuario_pk);
+       
+        String codigo = String.valueOf(usu.getUsuario_pk());
+        txtCodigo.setText(codigo);
+        txtNomeUsu.setText(usu.getNomeUsu());
+        txtEmailUsu.setText(usu.getEmailUsu());
+        txtDtNascUsu.setText(usu.getData_nascimentoUsu());
+        txtSenhaUsu.setText(usu.getSenhaUsu());
+        txtRSenhaUsu.setText(usu.getSenhaUsu());
+        AtivoUsu.setSelected(usu.getAtivoUsu() == 1);
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments
@@ -393,11 +373,21 @@ public class FRUpdUsu extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(FRUpdUsu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
-        /* Create and display the form */
+        /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FRUpdUsu().setVisible(true);
+                FRUpdUsu dialog = new FRUpdUsu(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
             }
         });
     }
@@ -409,7 +399,6 @@ public class FRUpdUsu extends javax.swing.JFrame {
     private javax.swing.JButton btAlterar;
     private javax.swing.JButton btExcluir;
     private javax.swing.JButton btVoltar;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel20;

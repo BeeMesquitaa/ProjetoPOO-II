@@ -1,6 +1,6 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
 package br.ulbra.view;
 
@@ -13,15 +13,14 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author beeme
  */
-public class FRConUsu extends javax.swing.JFrame {
+public class FRConUsu extends javax.swing.JDialog {
 
     /**
-     * Creates new form FRConUsu
+     * Creates new form FRConUsu_
      */
-    public FRConUsu() {
+    public FRConUsu(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
         initComponents();
-        this.setLocationRelativeTo(null);
-
     }
 
     /**
@@ -40,6 +39,7 @@ public class FRConUsu extends javax.swing.JFrame {
         txtFiltro = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabela = new javax.swing.JTable();
+        btVoltar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -52,7 +52,7 @@ public class FRConUsu extends javax.swing.JFrame {
         txtConsUsu.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
         txtConsUsu.setForeground(new java.awt.Color(0, 0, 0));
         txtConsUsu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/ulbra/img/searchiconbig (2).png"))); // NOI18N
-        txtConsUsu.setText("Consulta de Usuários");
+        txtConsUsu.setText("Consulta de Alunos");
 
         btLupa.setBackground(new java.awt.Color(153, 153, 153));
         btLupa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/ulbra/img/search.png"))); // NOI18N
@@ -90,6 +90,13 @@ public class FRConUsu extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tabela);
 
+        btVoltar.setText("VOLTAR");
+        btVoltar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btVoltarMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -109,8 +116,13 @@ public class FRConUsu extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 25, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(36, 36, 36))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(btVoltar)
+                        .addGap(55, 55, 55))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -126,7 +138,9 @@ public class FRConUsu extends javax.swing.JFrame {
                             .addComponent(txt, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(63, 63, 63)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(125, Short.MAX_VALUE))
+                .addGap(51, 51, 51)
+                .addComponent(btVoltar)
+                .addContainerGap(51, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -145,42 +159,45 @@ public class FRConUsu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void pesquisar() {
+    private void pesquisar(){
         DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
         modelo.setNumRows(0);
         UsuarioController controller = new UsuarioController();
-        for (Usuario usu : controller.readForDesc(txtFiltro.getText())) {
-            Object[] linha = {usu.getUsuario_pk(),
-                 usu.getNomeUsu(),
-                 usu.getEmailUsu(),
-                 usu.getData_nascimentoUsu(),
-                 usu.ativoToString()};
+        for(Usuario usu : controller.readForDesc(txtFiltro.getText())){
+            Object[] linha = {usu.getUsuario_pk()
+                    , usu.getNomeUsu()
+                    , usu.getEmailUsu()
+                    , usu.getData_nascimentoUsu()
+                    , usu.ativoToString()};
             modelo.addRow(linha);
         }
     }
+    
+    private void txtFiltroKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltroKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+           pesquisar();
+        } 
+    }//GEN-LAST:event_txtFiltroKeyPressed
 
+    private void tabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseClicked
+        if (tabela.getSelectedRow() != -1) {
+            int pk = Integer.parseInt
+            (tabela.getValueAt(tabela.getSelectedRow(), 0).toString()
+
+            );
+            FRUpdUsu telaUPD = new FRUpdUsu(null, rootPaneCheckingEnabled);
+            telaUPD.setUsuario_pk(pk);
+            telaUPD.setVisible(true);
+        }
+    }//GEN-LAST:event_tabelaMouseClicked
 
     private void btLupaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btLupaMouseClicked
         pesquisar();
     }//GEN-LAST:event_btLupaMouseClicked
 
-    private void tabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseClicked
-        if (tabela.getSelectedRow() != -1) {
-            int pk = Integer.parseInt
-                (tabela.getValueAt(tabela.getSelectedRow(), 0).toString()
-                
-            );
-            FRUpdUsu telaUPD = new FRUpdUsu();
-            telaUPD.setPkUsuario(pk);
-            telaUPD.setVisible(true);
-        }
-    }//GEN-LAST:event_tabelaMouseClicked
-
-    private void txtFiltroKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltroKeyPressed
-        if(evt.getKeyCode() == KeyEvent.VK_ENTER) {
-        pesquisar();
-        }
-    }//GEN-LAST:event_txtFiltroKeyPressed
+    private void btVoltarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btVoltarMouseClicked
+        this.dispose();
+    }//GEN-LAST:event_btVoltarMouseClicked
 
     /**
      * @param args the command line arguments
@@ -196,41 +213,38 @@ public class FRConUsu extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-
-}
+                }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FRConUsu.class  
-
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
-} catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FRConUsu.class  
-
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
-} catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FRConUsu.class  
-
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
-} catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FRConUsu.class  
-
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FRConUsu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(FRConUsu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(FRConUsu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(FRConUsu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
-        /* Create and display the form */
+        /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FRConUsu().setVisible(true);
+                FRConUsu dialog = new FRConUsu(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btLupa;
+    private javax.swing.JButton btVoltar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tabela;
