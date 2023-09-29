@@ -4,7 +4,9 @@
  */
 package br.ulbra.view;
 
+import br.ulbra.controller.TreinoController;
 import br.ulbra.controller.UsuarioController;
+import br.ulbra.model.Treino;
 import br.ulbra.model.Usuario;
 import java.awt.event.KeyEvent;
 import javax.swing.table.DefaultTableModel;
@@ -13,12 +15,12 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author beeme
  */
-public class FRConUsu extends javax.swing.JDialog {
+public class FRConTreinos extends javax.swing.JDialog {
 
     /**
-     * Creates new form FRConUsu_
+     * Creates new form FRConTreinos
      */
-    public FRConUsu(java.awt.Frame parent, boolean modal) {
+    public FRConTreinos(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
@@ -51,8 +53,8 @@ public class FRConUsu extends javax.swing.JDialog {
 
         txtConsUsu.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
         txtConsUsu.setForeground(new java.awt.Color(0, 0, 0));
-        txtConsUsu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/ulbra/img/searchiconbig (2).png"))); // NOI18N
-        txtConsUsu.setText("Consulta de Alunos");
+        txtConsUsu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/ulbra/img/6643367_diet_dumbbells_exercise_fitness_gym_icon.png"))); // NOI18N
+        txtConsUsu.setText("Consulta de Treinos");
 
         btLupa.setBackground(new java.awt.Color(153, 153, 153));
         btLupa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/ulbra/img/search.png"))); // NOI18N
@@ -72,15 +74,16 @@ public class FRConUsu extends javax.swing.JDialog {
         });
 
         tabela.setBackground(new java.awt.Color(153, 153, 153));
+        tabela.setForeground(new java.awt.Color(0, 0, 0));
         tabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Cod", "Nome", "E-mail", "Dt. Nasc.", "Ativo"
+                "Cod", "Nome", "Descrição", "Ativo"
             }
         ));
         tabela.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -102,11 +105,11 @@ public class FRConUsu extends javax.swing.JDialog {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(122, 122, 122)
-                        .addComponent(txtConsUsu, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(txtConsUsu, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGap(59, 59, 59)
                         .addComponent(txt, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -116,31 +119,27 @@ public class FRConUsu extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 25, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(36, 36, 36))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(btVoltar)
-                        .addGap(55, 55, 55))))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btVoltar)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(36, 36, 36))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
+                .addComponent(txtConsUsu)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btLupa, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtConsUsu)
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtFiltro, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(63, 63, 63)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(txtFiltro, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txt, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(41, 41, 41)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(51, 51, 51)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
                 .addComponent(btVoltar)
-                .addContainerGap(51, Short.MAX_VALUE))
+                .addGap(20, 20, 20))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -149,7 +148,7 @@ public class FRConUsu extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 22, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -158,21 +157,27 @@ public class FRConUsu extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    
+    
     private void pesquisar(){
         DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
         modelo.setNumRows(0);
-        UsuarioController controller = new UsuarioController();
-        for(Usuario usu : controller.readForDesc(txtFiltro.getText())){
-            Object[] linha = {usu.getPk()
-                    , usu.getNome()
-                    , usu.getEmail()
-                    , usu.getData_nascimentoUsu()
-                    , usu.getAtivo()};
+        TreinoController controller = new TreinoController();
+        for(Treino tre : controller.readForDesc(txtFiltro.getText())){
+            Object[] linha = {tre.getTreino_pk()
+                    , tre.getTreino_pk()
+                    , tre.getNomeTreino()
+                    , tre.getDescTreino()
+                    , tre.getAtivoTreino()};
             modelo.addRow(linha);
         }
     }
     
+    private void btLupaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btLupaMouseClicked
+        pesquisar();
+    }//GEN-LAST:event_btLupaMouseClicked
+
     private void txtFiltroKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltroKeyPressed
         if(evt.getKeyCode() == KeyEvent.VK_ENTER){
            pesquisar();
@@ -185,15 +190,11 @@ public class FRConUsu extends javax.swing.JDialog {
             (tabela.getValueAt(tabela.getSelectedRow(), 0).toString()
 
             );
-            FRUpdUsu telaUPD = new FRUpdUsu(null, rootPaneCheckingEnabled);
-            telaUPD.setUsuario_pk(pk);
+            FRUpdTreino telaUPD = new FRUpdTreino(null, rootPaneCheckingEnabled);
+            telaUPD.setTreino_pk(pk);
             telaUPD.setVisible(true);
         }
     }//GEN-LAST:event_tabelaMouseClicked
-
-    private void btLupaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btLupaMouseClicked
-        pesquisar();
-    }//GEN-LAST:event_btLupaMouseClicked
 
     private void btVoltarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btVoltarMouseClicked
         this.dispose();
@@ -216,21 +217,20 @@ public class FRConUsu extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FRConUsu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FRConTreinos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FRConUsu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FRConTreinos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FRConUsu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FRConTreinos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FRConUsu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FRConTreinos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                FRConUsu dialog = new FRConUsu(new javax.swing.JFrame(), true);
+                FRConTreinos dialog = new FRConTreinos(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

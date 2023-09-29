@@ -1,5 +1,7 @@
 package br.ulbra.model;
 
+import br.ulbra.utils.Utils;
+import java.io.IOException;
 import javax.swing.JOptionPane;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
@@ -9,6 +11,7 @@ import java.util.logging.Level;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.Connection;
+import javax.swing.Icon;
 
 
 public class UsuarioDAO {
@@ -33,24 +36,34 @@ public class UsuarioDAO {
     return false;
     }
     
-    public boolean adicionarUsuario(String nome, String email, String senha, String datan, int ativo) {
-        String sql = "INSERT INTO TBUsuario (nomeUsu, emailUsu, senhaUsu, data_nascimentoUsu, ativoUsu)"
-                + "VALUES (?, ?, ?, ?, ?)";
+    
+    
+    public boolean adicionarUsuario(String nome, String email, String senha, String datan, int ativo, Icon icone) {
+        String sql = "INSERT INTO TBUsuario (nomeUsu, emailUsu, senhaUsu, data_nascimentoUsu, ativoUsu, imagemUsu)"
+                + "VALUES (?, ?, ?, ?, ?, ?)";
         try {
+            byte[] iconBytes = Utils.iconToBytes(icone);
+                
+                
             PreparedStatement stmt = gerenciador.getConexao().prepareStatement(sql);
             stmt.setString(1, nome);
             stmt.setString(2, email);
             stmt.setString(3, senha);
             stmt.setString(4, datan);
             stmt.setInt(5, ativo);
+            stmt.setBytes(6, iconBytes);
             stmt.executeUpdate();
             JOptionPane.showMessageDialog(null, "Usuário: " + nome + "inserido com sucesso!");
             return true;
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "ERRO: " + e.getMessage());
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "ERRO: " + e.getMessage());
         }  
             return false;
     }
+    
+    
     
     public List<Usuario> read() {
         String sql = "SELECT * FROM  TBUsuario";
@@ -67,12 +80,12 @@ public class UsuarioDAO {
                 
                 Usuario usuario = new Usuario();
                 
-                usuario.setUsuario_pk(rs.getInt("pkusuario"));
-                usuario.setNomeUsu(rs.getString("nomeusu"));
-                usuario.setEmailUsu(rs.getString("emailusu"));
+                usuario.setPk(rs.getInt("pkusuario"));
+                usuario.setNome(rs.getString("nomeusu"));
+                usuario.setEmail(rs.getString("emailusu"));
                 usuario.setSenhaUsu(rs.getString("senhausu"));
                 usuario.setData_nascimentoUsu(rs.getString("datanascusu"));
-                usuario.setAtivoUsu(rs.getInt("ativousu"));
+                usuario.setAtivo(rs.getInt("ativousu"));
                 
                 usuarios.add(usuario);
             }
@@ -104,12 +117,12 @@ public class UsuarioDAO {
     
         Usuario usuario = new Usuario();
         
-        usuario.setUsuario_pk(rs.getInt("usuario_pk"));
-        usuario.setNomeUsu(rs.getString("nomeUsu"));
-        usuario.setEmailUsu(rs.getString("emailUsu"));
+        usuario.setPk(rs.getInt("usuario_pk"));
+        usuario.setNome(rs.getString("nomeUsu"));
+        usuario.setEmail(rs.getString("emailUsu"));
         usuario.setSenhaUsu(rs.getString("senhaUsu"));
         usuario.setData_nascimentoUsu(rs.getString("data_nascimentoUsu"));
-        usuario.setAtivoUsu(rs.getInt("ativoUsu"));
+        usuario.setAtivo(rs.getInt("ativoUsu"));
         usuarios.add(usuario);
     }
     
@@ -137,12 +150,12 @@ public class UsuarioDAO {
     rs = stmt.executeQuery();
     
     while (rs.next()) {
-        usuario.setUsuario_pk(rs.getInt("usuario_pk"));
-        usuario.setNomeUsu(rs.getString("nomeUsu"));
-        usuario.setEmailUsu(rs.getString("emailUsu"));
+        usuario.setPk(rs.getInt("usuario_pk"));
+        usuario.setNome(rs.getString("nomeUsu"));
+        usuario.setEmail(rs.getString("emailUsu"));
         usuario.setSenhaUsu(rs.getString("senhaUsu"));
         usuario.setData_nascimentoUsu(rs.getString("data_nascimentoUsu"));
-        usuario.setAtivoUsu(rs.getInt("ativoUsu"));
+        usuario.setAtivo(rs.getInt("ativoUsu"));
     }
     
     } catch (SQLException ex) {
@@ -164,12 +177,12 @@ public class UsuarioDAO {
             + "emailUsu = ?, senhaUsu = ?, data_nascimentoUsu = ?, "
             + "ativoUsu = ? WHERE usuario_pk = ?");
             
-            stmt.setString(1, u.getNomeUsu());
-            stmt.setString(2, u.getEmailUsu());
+            stmt.setString(1, u.getNome());
+            stmt.setString(2, u.getEmail());
             stmt.setString(3, u.getSenhaUsu());
             stmt.setString(4, u.getData_nascimentoUsu());
-            stmt.setInt(5, u.getAtivoUsu());
-            stmt.setInt(6, u.getUsuario_pk());
+            stmt.setInt(5, u.getAtivo());
+            stmt.setInt(6, u.getPk());
             
             stmt.executeUpdate();
             

@@ -6,6 +6,11 @@ package br.ulbra.view;
 
 import br.ulbra.controller.UsuarioController;
 import br.ulbra.model.Usuario;
+import br.ulbra.utils.Utils;
+import java.io.File;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 /**
@@ -39,7 +44,6 @@ public class FRUpdUsu extends javax.swing.JDialog {
     private void initComponents() {
 
         jPanel3 = new javax.swing.JPanel();
-        txtUsu = new javax.swing.JLabel();
         LabelNome = new javax.swing.JLabel();
         txtNomeUsu = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
@@ -56,6 +60,8 @@ public class FRUpdUsu extends javax.swing.JDialog {
         txtCodigo = new javax.swing.JTextField();
         txtRSenhaUsu = new javax.swing.JLabel();
         txtRepetirSUsu = new javax.swing.JPasswordField();
+        lbFoto = new javax.swing.JLabel();
+        btAlterarImagem = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -65,11 +71,6 @@ public class FRUpdUsu extends javax.swing.JDialog {
         });
 
         jPanel3.setBackground(new java.awt.Color(204, 204, 204));
-
-        txtUsu.setFont(new java.awt.Font("Segoe UI Black", 1, 36)); // NOI18N
-        txtUsu.setForeground(new java.awt.Color(0, 0, 0));
-        txtUsu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/ulbra/img/user.png"))); // NOI18N
-        txtUsu.setText(" Usuário");
 
         LabelNome.setForeground(new java.awt.Color(0, 0, 0));
         LabelNome.setText("NOME:");
@@ -119,6 +120,11 @@ public class FRUpdUsu extends javax.swing.JDialog {
         btExcluir.setForeground(new java.awt.Color(0, 0, 0));
         btExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/ulbra/img/trash.png"))); // NOI18N
         btExcluir.setText("EXCLUIR");
+        btExcluir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btExcluirMouseClicked(evt);
+            }
+        });
 
         AtivoUsu.setForeground(new java.awt.Color(0, 0, 0));
         AtivoUsu.setText("ATIVO");
@@ -162,19 +168,28 @@ public class FRUpdUsu extends javax.swing.JDialog {
             }
         });
 
+        lbFoto.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        btAlterarImagem.setBackground(new java.awt.Color(153, 153, 153));
+        btAlterarImagem.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btAlterarImagem.setForeground(new java.awt.Color(0, 0, 0));
+        btAlterarImagem.setText("ALTERAR IMAGEM");
+        btAlterarImagem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btAlterarImagemMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(64, 64, 64)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
-                        .addGap(123, 123, 123)
-                        .addComponent(txtUsu, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(AtivoUsu, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtEmailUsu, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(LabelNome, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(txtNomeUsu)
@@ -183,53 +198,68 @@ public class FRUpdUsu extends javax.swing.JDialog {
                                 .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(txtDtNascUsu)
                                 .addComponent(txtSenhaUsu))
-                            .addGap(145, 145, 145)
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(Txt, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addComponent(txtEmailUsu, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtRSenhaUsu, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtRepetirSUsu, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel3Layout.createSequentialGroup()
-                            .addComponent(btAlterar)
-                            .addGap(54, 54, 54)
-                            .addComponent(btExcluir)
-                            .addGap(85, 85, 85)
-                            .addComponent(btVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(43, Short.MAX_VALUE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                        .addComponent(btAlterar)
+                                        .addGap(54, 54, 54))
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addComponent(txtRSenhaUsu, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(56, 56, 56)))
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(Txt, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addComponent(btExcluir)
+                                        .addGap(85, 85, 85)
+                                        .addComponent(btVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addContainerGap(19, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(txtRepetirSUsu, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(AtivoUsu, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(btAlterarImagem, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lbFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(24, 24, 24))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(txtUsu)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(LabelNome)
-                    .addComponent(Txt, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNomeUsu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
-                .addComponent(jLabel18)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtEmailUsu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(47, 47, 47)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(LabelNome)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtNomeUsu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(24, 24, 24)
-                        .addComponent(jLabel19))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addComponent(AtivoUsu)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtEmailUsu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lbFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel19)
+                    .addComponent(btAlterarImagem, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(14, 14, 14)
                 .addComponent(txtDtNascUsu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24)
                 .addComponent(jLabel20)
                 .addGap(18, 18, 18)
                 .addComponent(txtSenhaUsu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(txtRSenhaUsu)
-                .addGap(18, 18, 18)
-                .addComponent(txtRepetirSUsu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtRSenhaUsu)
+                    .addComponent(Txt))
+                .addGap(22, 22, 22)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtRepetirSUsu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(AtivoUsu)
+                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btAlterar)
@@ -243,7 +273,7 @@ public class FRUpdUsu extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(30, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -252,7 +282,7 @@ public class FRUpdUsu extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addContainerGap(54, Short.MAX_VALUE))
         );
 
         pack();
@@ -314,7 +344,22 @@ public class FRUpdUsu extends javax.swing.JDialog {
     }//GEN-LAST:event_txtDtNascUsuActionPerformed
 
     private void btAlterarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btAlterarMouseClicked
-    
+        if(!verificarCampos()){
+            return;
+        }
+
+        UsuarioController controller = new UsuarioController();
+        String senha = new String(txtSenhaUsu.getPassword());
+        Usuario usuario = new Usuario();
+        usuario.setPk(usuario_pk);
+        usuario.setNome(txtNomeUsu.getText());
+        usuario.setEmail(txtEmailUsu.getText());
+        usuario.setData_nascimentoUsu(txtDtNascUsu.getText());
+        usuario.setAtivo(Utils.salvarBoolean(AtivoUsu.isSelected()));
+        usuario.setSenhaUsu(senha);
+        if(controller.alterarUsuario(usuario)){
+            this.dispose();
+        };
     }//GEN-LAST:event_btAlterarMouseClicked
 
     private void txtSenhaUsuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSenhaUsuActionPerformed
@@ -337,19 +382,45 @@ public class FRUpdUsu extends javax.swing.JDialog {
         UsuarioController controller = new UsuarioController();
         Usuario usu = controller.readForPk(usuario_pk);
        
-        String codigo = String.valueOf(usu.getUsuario_pk());
+        String codigo = String.valueOf(usu.getPk());
         txtCodigo.setText(codigo);
-        txtNomeUsu.setText(usu.getNomeUsu());
-        txtEmailUsu.setText(usu.getEmailUsu());
+        txtNomeUsu.setText(usu.getNome());
+        txtEmailUsu.setText(usu.getEmail());
         txtDtNascUsu.setText(usu.getData_nascimentoUsu());
         txtSenhaUsu.setText(usu.getSenhaUsu());
         txtRSenhaUsu.setText(usu.getSenhaUsu());
-        AtivoUsu.setSelected(usu.getAtivoUsu() == 1);
+        AtivoUsu.setSelected(usu.getAtivo() == 1);
     }//GEN-LAST:event_formWindowActivated
 
-    /**
-     * @param args the command line arguments
-     */
+    private void btExcluirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btExcluirMouseClicked
+        int resposta = JOptionPane.showConfirmDialog(null, "Deseja excluir o usuário?",
+            "Confirmação", JOptionPane.YES_NO_OPTION);
+
+        if (resposta == JOptionPane.YES_OPTION) {
+            UsuarioController controller = new UsuarioController();
+            if(controller.excluirUsuario(usuario_pk)){
+                this.dispose();
+            };
+        }
+    }//GEN-LAST:event_btExcluirMouseClicked
+
+    private void btAlterarImagemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btAlterarImagemMouseClicked
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Escolha um arquivo");
+        
+        int returnValue = fileChooser.showOpenDialog(null);
+        
+        if (returnValue == JFileChooser.APPROVE_OPTION) {
+        File arquivo = fileChooser.getSelectedFile();
+        Icon icon = Utils.fileParaIcon(arquivo);
+        
+        ImageIcon iconRedimensionado = Utils.redimensionarIcon(
+                icon, 140, 140);
+                
+                lbFoto.setIcon(iconRedimensionado);
+        }
+    }//GEN-LAST:event_btAlterarImagemMouseClicked
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -397,12 +468,14 @@ public class FRUpdUsu extends javax.swing.JDialog {
     private javax.swing.JLabel LabelNome;
     private javax.swing.JLabel Txt;
     private javax.swing.JButton btAlterar;
+    private javax.swing.JToggleButton btAlterarImagem;
     private javax.swing.JButton btExcluir;
     private javax.swing.JButton btVoltar;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JLabel lbFoto;
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtDtNascUsu;
     private javax.swing.JTextField txtEmailUsu;
@@ -410,6 +483,5 @@ public class FRUpdUsu extends javax.swing.JDialog {
     private javax.swing.JLabel txtRSenhaUsu;
     private javax.swing.JPasswordField txtRepetirSUsu;
     private javax.swing.JPasswordField txtSenhaUsu;
-    private javax.swing.JLabel txtUsu;
     // End of variables declaration//GEN-END:variables
 }
